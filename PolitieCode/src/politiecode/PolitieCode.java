@@ -10,8 +10,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import politiecode.Classen.Medewerker;
 
 /**
  *
@@ -19,26 +22,63 @@ import javafx.stage.Stage;
  */
 public class PolitieCode extends Application {
     
+    Medewerker db = new Medewerker();
     
     @Override
     public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.getStyleClass().add("btn--default");
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                
-            }
-        });
-        
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 300, 250);
+        Pane root = new Pane();
+        Scene scene = new Scene(root, 1280, 720);
         scene.getStylesheets().add(this.getClass().getResource("StyleSheet/Style.css").toExternalForm());
         primaryStage.setTitle("PolitieCode");
         primaryStage.setScene(scene);
+        
+        Button btnInloggen = new Button("Inloggen");
+        TextField TxtNaam = new TextField();
+        TextField TxtWachtwoord = new TextField();
+        
+        btnInloggen.getStyleClass().add("btn--default");
+        TxtNaam.getStyleClass().add("TextField");
+        TxtWachtwoord.getStyleClass().add("TextField");
+        
+        Label LblFout = new Label("Wachtwoord/Naam klopt niet!");
+        LblFout.setVisible(false);
+        LblFout.getStyleClass().add("label--error");
+        
+        btnInloggen.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+               String Naam = TxtNaam.getText();
+               String Wachtwoord = TxtWachtwoord.getText();
+                if(db.connectDb()){
+                    if(db.CheckInlog(Naam, Wachtwoord) == true){
+                        VoertuigenScherm VoertuigenScherm = new VoertuigenScherm(primaryStage, scene);
+                    }else{
+                       LblFout.setVisible(true); 
+                    }
+                   
+                }
+            }
+        });
+        
+        
+        
+        TxtNaam.setLayoutX(500);
+        TxtNaam.setLayoutY(200);
+        TxtNaam.setPrefSize(300, 50);
+        
+        TxtWachtwoord.setLayoutX(500);
+        TxtWachtwoord.setLayoutY(260);
+        TxtWachtwoord.setPrefSize(300, 50);
+        
+        btnInloggen.setLayoutX(500);
+        btnInloggen.setLayoutY(320);
+        
+        LblFout.setLayoutX(610);
+        LblFout.setLayoutY(330);
+        
+        root.getChildren().addAll(TxtNaam, TxtWachtwoord,btnInloggen,LblFout);
+        
+
         primaryStage.show();
     }
 

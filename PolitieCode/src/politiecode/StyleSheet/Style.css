@@ -12,27 +12,8 @@ and open the template in the editor.
     -fx-font-size: 13pt;
     -fx-font-family: "Verdana";
     -fx-text-fill: rgb(0, 0, 0);
-    -fx-background-color: rgb(238, 238, 238);
-}
-
-.menu__top{
-    -fx-background-color: rgb(0, 0, 0);
-}
-
-.menu__bottom{
-    -fx-background-color: rgb(69, 69, 69);
-}
-
-.menu--button{
-    -fx-background-color: rgba(0, 0, 0, 0);
-    -fx-text-fill: rgb(255, 255, 255);
-    -fx-font-size: 14pt;
-    -fx-font-weight: 500;
-}
-
-.menu--button:hover, .menu--active{
-    -fx-border-color: rgb(200 ,2 ,27);
-    -fx-border-width: 0 0 6 0;
+    -fx-background-repeat: stretch;
+    -fx-background-image: url("achtergrond_1.PNG");
 }
 
 .page--title{
@@ -58,19 +39,26 @@ and open the template in the editor.
     -fx-border-width: 1 1 1 1;
 }
 
-.btn--default{
-    -fx-text-fill: rgb(255, 255, 255);
+.TextField{
+    -fx-background-color: rgb(190, 215, 232); 
     -fx-font-size: 13pt;
-    -fx-background-color: rgb(200, 2, 27);
     -fx-border-radius: 10;
     -fx-background-radius: 10;
-    -fx-border-color: rgb(200 , 2, 27);
+}
+
+.btn--default{
+    -fx-font-size: 13pt;
+    -fx-background-color: rgb(190, 215, 232);
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-border-color: rgb(190, 215, 232);
     -fx-border-width: 2 2 2 2;
 }
 
 .btn--default:hover{
     -fx-text-fill: rgb(0, 0, 0);
-    -fx-background-color: rgb(255, 255, 255);
+    -fx-background-color: rgb(92, 143, 237);
+    -fx-border-color: rgb(92, 143, 237);
 }
 
 .feedback__label{
