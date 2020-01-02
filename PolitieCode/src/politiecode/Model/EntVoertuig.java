@@ -5,13 +5,8 @@
  */
 package politiecode.Model;
 
-import java.time.LocalDate;
 
-/**
- *
- * @author rickd
- */
-public class EntAuto {
+public class EntVoertuig {
 
     public String Kenteken;
     public String VoertuigSoort;
@@ -19,10 +14,16 @@ public class EntAuto {
     public String Handelsbenaming;
     public String Eerste_kleur;
     public String Tweede_kleur;
-    public LocalDate Vervaldatum_apk;
+    public String Vervaldatum_apk;
 
-    public EntAuto(String Kenteken) {
+    public EntVoertuig(String Kenteken, String VoertuigSoort, String Merk, String Handelsbenaming, String Eerste_kleur, String Tweede_kleur, String Vervaldatum_apk) {
         this.Kenteken = Kenteken;
+        this.VoertuigSoort = VoertuigSoort;
+        this.Merk = Merk;
+        this.Handelsbenaming = Handelsbenaming;
+        this.Eerste_kleur = Eerste_kleur;
+        this.Tweede_kleur = Tweede_kleur;
+        this.Vervaldatum_apk = Vervaldatum_apk;
     }
 
     @Override
@@ -78,11 +79,11 @@ public class EntAuto {
         this.Tweede_kleur = Tweede_kleur;
     }
 
-    public LocalDate getVervaldatum_apk() {
+    public String getVervaldatum_apk() {
         return Vervaldatum_apk;
     }
 
-    public void setVervaldatum_apk(LocalDate Vervaldatum_apk) {
+    public void setVervaldatum_apk(String Vervaldatum_apk) {
         this.Vervaldatum_apk = Vervaldatum_apk;
     }
 

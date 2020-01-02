@@ -12,9 +12,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import politiecode.Model.EntVoertuig;
 
 /**
  *
@@ -23,6 +26,7 @@ import org.json.JSONTokener;
 public class Voertuig {
 
     private Connection conn;
+    EntVoertuig HetVoertuig;
 
     public boolean connectDb() {
         try {
@@ -72,7 +76,7 @@ public class Voertuig {
 
     public boolean CheckKenteken(String Kenteken) {
         try (
-            PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM Voertuig WHERE Kenteken = ?")) {
+                PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM Voertuig WHERE Kenteken = ?")) {
             preparedStatement.setString(1, Kenteken);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -83,4 +87,51 @@ public class Voertuig {
         }
         return false;
     }
+
+    public ObservableList<EntVoertuig> VulLijstKenteken() {
+        try {
+            Statement stmt = this.conn.createStatement();
+            ObservableList<EntVoertuig> LijstKenteken = FXCollections.observableArrayList();
+            ResultSet rs;
+            if (stmt.execute("SELECT Kenteken FROM Voertuig")) {
+                rs = stmt.getResultSet();
+                while (rs.next()) {
+                    EntVoertuig HetKenteken = new EntVoertuig(rs.getString("Kenteken"),"DummyData","DummyData","DummyData","DummyData","DummyData","DummyData");
+                    LijstKenteken.add(HetKenteken);
+                }
+            }
+            return LijstKenteken;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
+    
+    public boolean DeleteVoertuig(String Kenteken) {
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.execute("Delete from Voertuig where Kenteken = '" + Kenteken + "'");
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+    
+        public EntVoertuig GeefVoertuig(String eKenteken) {
+        try {
+            Statement stmt = this.conn.createStatement();
+            ResultSet rs;
+            if (stmt.execute("SELECT * FROM Voertuig where Kenteken = '" + eKenteken + "'")) {
+                rs = stmt.getResultSet();
+                while (rs.next()) {
+                   HetVoertuig = new EntVoertuig(rs.getString("Kenteken"),rs.getString("Voertuigsoort"),rs.getString("Merk"),rs.getString("Handelsbenaming"),rs.getString("Eerste_kleur"),rs.getString("Tweede_kleur"),rs.getString("Vervaldatum_apk"));
+                }
+            }
+            return HetVoertuig;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
 }
