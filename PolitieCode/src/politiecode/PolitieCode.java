@@ -14,7 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import politiecode.Classen.Medewerker;
+import politiecode.Controller.Medewerker;
 
 /**
  *
@@ -33,8 +33,8 @@ public class PolitieCode extends Application {
         primaryStage.setScene(scene);
         
         Button btnInloggen = new Button("Inloggen");
-        TextField TxtNaam = new TextField();
-        TextField TxtWachtwoord = new TextField();
+        TextField TxtNaam = new TextField("Rick");
+        TextField TxtWachtwoord = new TextField("Rick");
         
         btnInloggen.getStyleClass().add("btn--default");
         TxtNaam.getStyleClass().add("TextField");
@@ -59,9 +59,7 @@ public class PolitieCode extends Application {
                 }
             }
         });
-        
-        
-        
+       
         TxtNaam.setLayoutX(500);
         TxtNaam.setLayoutY(200);
         TxtNaam.setPrefSize(300, 50);
@@ -78,7 +76,6 @@ public class PolitieCode extends Application {
         
         root.getChildren().addAll(TxtNaam, TxtWachtwoord,btnInloggen,LblFout);
         
-
         primaryStage.show();
     }
 
