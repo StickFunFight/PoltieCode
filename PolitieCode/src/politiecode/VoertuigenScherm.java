@@ -5,14 +5,20 @@
  */
 package politiecode;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import politiecode.Controller.Alert;
+import politiecode.Controller.Bekeuring;
 import politiecode.Controller.Voertuig;
 import politiecode.Model.EntVoertuig;
 
@@ -23,6 +29,7 @@ import politiecode.Model.EntVoertuig;
 public class VoertuigenScherm {
 
     Voertuig Voertuig = new Voertuig();
+    Bekeuring boete = new Bekeuring();
     Alert popUp = new Alert();
     String eKenteken;
 
@@ -50,6 +57,7 @@ public class VoertuigenScherm {
 
         Button BtnKenteken = new Button("Zoeken");
         Button BtnVerwijderen = new Button("Verwijderen");
+        Button BtnBekeuring = new Button("Bekeuring");
 
         TxtKenteken.setLayoutX(500);
         TxtKenteken.setLayoutY(10);
@@ -129,6 +137,12 @@ public class VoertuigenScherm {
         BtnKenteken.getStyleClass().add("btn--default");
         BtnKenteken.setPrefSize(120, 40);
 
+        BtnBekeuring.setLayoutX(750);
+        BtnBekeuring.setLayoutY(620);
+        BtnBekeuring.getStyleClass().add("btn--default");
+        BtnBekeuring.setPrefSize(150, 40);
+        BtnBekeuring.setVisible(false);
+
         ListView<EntVoertuig> list = new ListView<>();
 
         list.setLayoutX(10);
@@ -141,6 +155,7 @@ public class VoertuigenScherm {
                 EntVoertuig HetVoertuig = list.getSelectionModel().getSelectedItem();
                 eKenteken = HetVoertuig.getKenteken();
                 BtnVerwijderen.setVisible(true);
+                BtnBekeuring.setVisible(true);
 
                 EntVoertuig hetVoertuig = Voertuig.GeefVoertuig(eKenteken);
                 TxteKenteken.setText(hetVoertuig.getKenteken());
@@ -152,7 +167,7 @@ public class VoertuigenScherm {
                 TxtVervalDatum.setText(hetVoertuig.getVervaldatum_apk());
 
             } catch (Exception ex) {
-                popUp.PopUP("Er ging iets mis!" + ex);
+                popUp.PopUPWarning("Er ging iets mis!" + ex);
             }
         });
 
@@ -162,7 +177,7 @@ public class VoertuigenScherm {
                 list.setItems(Voertuig.VulLijstKenteken());
                 BtnVerwijderen.setVisible(false);
             } else {
-                popUp.PopUP("Er is geen database Connectie!");
+                popUp.PopUPWarning("Er is geen database Connectie!");
             }
         });
 
@@ -184,10 +199,8 @@ public class VoertuigenScherm {
                         TxtKleur.setText(hetVoertuig.getEerste_kleur());
                         TxtKleurTwee.setText(hetVoertuig.getTweede_kleur());
                         TxtVervalDatum.setText(hetVoertuig.getVervaldatum_apk());
-                       
-                    } 
-                    else 
-                    {
+                        BtnBekeuring.setVisible(true);
+                    } else {
                         EntVoertuig hetVoertuig = Voertuig.GeefVoertuig(Kenteken);
                         TxteKenteken.setText(hetVoertuig.getKenteken());
                         TxtVoertuigsoort.setText(hetVoertuig.getVoertuigSoort());
@@ -196,10 +209,70 @@ public class VoertuigenScherm {
                         TxtKleur.setText(hetVoertuig.getEerste_kleur());
                         TxtKleurTwee.setText(hetVoertuig.getTweede_kleur());
                         TxtVervalDatum.setText(hetVoertuig.getVervaldatum_apk());
+                        BtnBekeuring.setVisible(true);
                     }
                 }
             } catch (Exception ex) {
-                popUp.PopUP("Er ging iets mis!" + ex);
+                popUp.PopUPWarning("Er ging iets mis!" + ex);
+            }
+        });
+
+        BtnBekeuring.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String HetKenteken = TxteKenteken.getText();
+                GridPane gridPane = new GridPane();
+                Stage stage = new Stage();
+
+                Label LblKenteken = new Label("Kenteken");
+                Label LblReden = new Label("Reden");
+
+                LblKenteken.getStyleClass().add("Label");
+                LblReden.getStyleClass().add("Label");
+
+                TextField TxtKenteken = new TextField(HetKenteken);
+                TextField TxtReden = new TextField();
+
+                TxtKenteken.getStyleClass().add("TextField");
+                TxtReden.getStyleClass().add("TextField");
+
+                Button BtnOpslaan = new Button("Opslaan");
+                Button BtnCancel = new Button("Annuleren");
+
+                BtnCancel.getStyleClass().add("btn--default");
+                BtnOpslaan.getStyleClass().add("btn--default");
+
+                gridPane.setMinSize(400, 200);
+                gridPane.setPadding(new Insets(10, 10, 10, 10));
+                gridPane.setVgap(5);
+                gridPane.setHgap(5);
+                gridPane.setAlignment(Pos.CENTER);
+
+                gridPane.add(LblKenteken, 0, 0);
+                gridPane.add(TxtKenteken, 1, 0);
+
+                gridPane.add(LblReden, 0, 1);
+                gridPane.add(TxtReden, 1, 1);
+
+                gridPane.add(BtnOpslaan, 0, 2);
+                gridPane.add(BtnCancel, 1, 2);
+
+                stage.setTitle("Bekeuring");
+                gridPane.getStylesheets().add(this.getClass().getResource("StyleSheet/Style.css").toExternalForm());
+                stage.setScene(new Scene(gridPane, 700, 500));
+                stage.show();
+
+                BtnCancel.setOnAction(e -> {
+                    stage.close();
+                });
+
+                BtnOpslaan.setOnAction(e -> {
+                    if (boete.connectDb()) {
+                        boete.NieuweBoete(HetKenteken, TxtReden.getText());
+                        popUp.PopUpConfirm("Opgelsagen!");
+                        stage.close();
+                    }
+                });
             }
         });
 
@@ -208,7 +281,7 @@ public class VoertuigenScherm {
         }
 
         root.getChildren().addAll(TxtKenteken, TxteKenteken, TxtVoertuigsoort, TxtMerk, Txthandelsbenaming, TxtKleur, TxtKleurTwee, TxtVervalDatum, BtnKenteken, BtnVerwijderen, list,
-                LblKenteken, LblVoertuigsoort, LblMerk, LblModel, LblKleur, LblKleur2, LblVerval);
+                LblKenteken, LblVoertuigsoort, LblMerk, LblModel, LblKleur, LblKleur2, LblVerval, BtnBekeuring);
         stage.setScene(nieuwScene);
 
     }

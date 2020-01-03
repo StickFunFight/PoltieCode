@@ -54,14 +54,14 @@ public class PolitieCode extends Application {
                 try {
                     if (db.connectDb()) {
                         if (db.CheckInlog(Naam, Wachtwoord) == true) {
+                            db.IdOpslaan(Naam, Wachtwoord);
                             VoertuigenScherm VoertuigenScherm = new VoertuigenScherm(primaryStage, scene);
-
                         } else {
                             LblFout.setVisible(true);
                         }
                     }
                 } catch (Exception e) {
-                    popUp.PopUP("Er ging iets mis!"+ e);
+                    popUp.PopUPWarning("Er ging iets mis!"+ e);
                 }
             }
         });

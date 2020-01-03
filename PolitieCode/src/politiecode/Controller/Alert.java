@@ -10,9 +10,15 @@ package politiecode.Controller;
  * @author rickd
  */
 public class Alert {
-    
-     public void PopUP(String Message) {
+
+    public void PopUPWarning(String Message) {
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.WARNING);
+        alert.setContentText(Message);
+        alert.showAndWait();
+    }
+
+    public void PopUpConfirm(String Message) {
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION);
         alert.setContentText(Message);
         alert.showAndWait();
     }

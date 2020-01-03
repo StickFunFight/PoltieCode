@@ -10,6 +10,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.prefs.Preferences;
 
 /**
  *
@@ -47,4 +49,22 @@ public class Medewerker {
         }
         return false;
     }
+
+    public void IdOpslaan(String Naam, String Wachtwoord) {
+        try {
+            Statement stmt = this.conn.createStatement();
+            ResultSet rs;
+            if (stmt.execute("SELECT Id FROM medewerker Where Naam = '" + Naam + "' and Wachtwoord = '" + Wachtwoord + "'")) {
+                rs = stmt.getResultSet();
+                while (rs.next()) {
+                    String Id = rs.getString("Id");
+                    Preferences prefs = Preferences.userNodeForPackage(politiecode.Controller.Medewerker.class);
+                    prefs.put("MedewerkerId",Id);
+                }
+            }
+        } catch (SQLException e) {
+            
+        }
+    }
+
 }
