@@ -105,6 +105,44 @@ public class Voertuig {
             return null;
         }
     }
+    
+     public boolean UpdateVoertuig(String Kenteken, String Voertuigsoort, String merk, String Handelsbenaming, String Eerste_kleur, String Tweede_kleur, String Vervaldatum_apk) {
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.execute("update Voertuig set Kenteken = '" + Kenteken + "', Voertuigsoort = '" + Voertuigsoort + "',Merk = '" + merk + "', Handelsbenaming = '" + Handelsbenaming + "', Eerste_kleur = '" + Eerste_kleur + "',Tweede_kleur = '" + Tweede_kleur + "',Vervaldatum_apk = '" + Vervaldatum_apk + "'");
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+    
+    public void VoertuigUpdate(String Kennteken) {
+        try {
+            URI uri = new URI("https://opendata.rdw.nl/resource/m9d7-ebf2.json?kenteken=" + Kennteken);
+            JSONTokener tokener = new JSONTokener(uri.toURL().openStream());
+            JSONArray Auto = new JSONArray(tokener);
+
+            for (int i = 0; i < Auto.length(); ++i) {
+                JSONObject Json = Auto.getJSONObject(i);
+
+                String Kenteken = Json.getString("kenteken");
+                String Voertuigsoort = Json.getString("voertuigsoort");
+                String merk = Json.getString("merk");
+                String Handelsbenaming = Json.getString("handelsbenaming");
+                String Eerste_kleur = Json.getString("eerste_kleur");
+                String Tweede_kleur = Json.getString("tweede_kleur");
+                String Vervaldatum_apk = Json.getString("vervaldatum_apk");
+
+                UpdateVoertuig(Kenteken, Voertuigsoort, merk, Handelsbenaming, Eerste_kleur, Tweede_kleur, Vervaldatum_apk);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+    
+    
 
     
     public boolean DeleteVoertuig(String Kenteken) {

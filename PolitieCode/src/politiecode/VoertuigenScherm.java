@@ -58,6 +58,7 @@ public class VoertuigenScherm {
         Button BtnKenteken = new Button("Zoeken");
         Button BtnVerwijderen = new Button("Verwijderen");
         Button BtnBekeuring = new Button("Bekeuring");
+        Button BtnUpdate = new Button("Vernieuwen");
 
         TxtKenteken.setLayoutX(500);
         TxtKenteken.setLayoutY(10);
@@ -137,6 +138,12 @@ public class VoertuigenScherm {
         BtnKenteken.getStyleClass().add("btn--default");
         BtnKenteken.setPrefSize(120, 40);
 
+        BtnUpdate.setLayoutX(550);
+        BtnUpdate.setLayoutY(620);
+        BtnUpdate.getStyleClass().add("btn--default");
+        BtnUpdate.setPrefSize(170, 40);
+        BtnUpdate.setVisible(false);
+
         BtnBekeuring.setLayoutX(750);
         BtnBekeuring.setLayoutY(620);
         BtnBekeuring.getStyleClass().add("btn--default");
@@ -156,6 +163,7 @@ public class VoertuigenScherm {
                 eKenteken = HetVoertuig.getKenteken();
                 BtnVerwijderen.setVisible(true);
                 BtnBekeuring.setVisible(true);
+                BtnUpdate.setVisible(true);
 
                 EntVoertuig hetVoertuig = Voertuig.GeefVoertuig(eKenteken);
                 TxteKenteken.setText(hetVoertuig.getKenteken());
@@ -181,6 +189,17 @@ public class VoertuigenScherm {
             }
         });
 
+        BtnUpdate.setOnAction(e -> {
+            try {
+                if (Voertuig.connectDb()) {
+                    Voertuig.VoertuigUpdate(eKenteken);
+                    popUp.PopUpConfirm("Auto vernieuwd");
+                }
+            } catch (Exception ex) {
+                popUp.PopUPWarning("Er is geen database Connectie!");
+            }
+        });
+
         BtnKenteken.setOnAction(e -> {
             String Kenteken = TxtKenteken.getText();
 
@@ -200,6 +219,7 @@ public class VoertuigenScherm {
                         TxtKleurTwee.setText(hetVoertuig.getTweede_kleur());
                         TxtVervalDatum.setText(hetVoertuig.getVervaldatum_apk());
                         BtnBekeuring.setVisible(true);
+                        BtnUpdate.setVisible(true);
                     } else {
                         EntVoertuig hetVoertuig = Voertuig.GeefVoertuig(Kenteken);
                         TxteKenteken.setText(hetVoertuig.getKenteken());
@@ -210,6 +230,7 @@ public class VoertuigenScherm {
                         TxtKleurTwee.setText(hetVoertuig.getTweede_kleur());
                         TxtVervalDatum.setText(hetVoertuig.getVervaldatum_apk());
                         BtnBekeuring.setVisible(true);
+                        BtnUpdate.setVisible(true);
                     }
                 }
             } catch (Exception ex) {
@@ -281,7 +302,7 @@ public class VoertuigenScherm {
         }
 
         root.getChildren().addAll(TxtKenteken, TxteKenteken, TxtVoertuigsoort, TxtMerk, Txthandelsbenaming, TxtKleur, TxtKleurTwee, TxtVervalDatum, BtnKenteken, BtnVerwijderen, list,
-                LblKenteken, LblVoertuigsoort, LblMerk, LblModel, LblKleur, LblKleur2, LblVerval, BtnBekeuring);
+                LblKenteken, LblVoertuigsoort, LblMerk, LblModel, LblKleur, LblKleur2, LblVerval, BtnBekeuring, BtnUpdate);
         stage.setScene(nieuwScene);
 
     }
