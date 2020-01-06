@@ -17,17 +17,19 @@ import javafx.collections.ObservableList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import politiecode.Interface.IdbConnect;
 import politiecode.Model.EntVoertuig;
 
 /**
  *
  * @author rickd
  */
-public class Voertuig {
+public class Voertuig implements IdbConnect {
 
     private Connection conn;
     EntVoertuig HetVoertuig;
 
+    @Override
     public boolean connectDb() {
         try {
             this.conn = DriverManager.getConnection("jdbc:mysql://localhost/politiecode?" + "user=root&password=");

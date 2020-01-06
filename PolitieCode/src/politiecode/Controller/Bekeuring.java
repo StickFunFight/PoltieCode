@@ -12,15 +12,17 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.prefs.Preferences;
+import politiecode.Interface.IdbConnect;
 
 /**
  *
  * @author rickd
  */
-public class Bekeuring {
+public class Bekeuring implements IdbConnect{
 
     private Connection conn;
 
+    @Override
     public boolean connectDb() {
         try {
             this.conn = DriverManager.getConnection("jdbc:mysql://localhost/politiecode?" + "user=root&password=");

@@ -12,15 +12,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.prefs.Preferences;
+import politiecode.Interface.IdbConnect;
 
 /**
  *
  * @author rickd
  */
-public class Medewerker {
+public class Medewerker implements IdbConnect {
 
     private Connection conn;
 
+    @Override
     public boolean connectDb() {
         try {
             this.conn = DriverManager.getConnection("jdbc:mysql://localhost/politiecode?" + "user=root&password=");
