@@ -17,17 +17,23 @@ import javafx.collections.ObservableList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import politiecode.Interface.IdbConnect;
 import politiecode.Model.EntVoertuig;
 
 /**
  *
  * @author rickd
  */
-public class Voertuig {
+public class Voertuig implements IdbConnect {
 
     private Connection conn;
     EntVoertuig HetVoertuig;
 
+    /**
+     *
+     * @return
+     */
+    @Override
     public boolean connectDb() {
         try {
             this.conn = DriverManager.getConnection("jdbc:mysql://localhost/politiecode?" + "user=root&password=");
@@ -38,6 +44,17 @@ public class Voertuig {
         }
     }
 
+    /**
+     *
+     * @param Kenteken
+     * @param Voertuigsoort
+     * @param merk
+     * @param Handelsbenaming
+     * @param Eerste_kleur
+     * @param Tweede_kleur
+     * @param Vervaldatum_apk
+     * @return
+     */
     public boolean NieuwVoertuig(String Kenteken, String Voertuigsoort, String merk, String Handelsbenaming, String Eerste_kleur, String Tweede_kleur, String Vervaldatum_apk) {
         try {
             Statement stmt = conn.createStatement();
@@ -49,6 +66,10 @@ public class Voertuig {
         }
     }
 
+    /**
+     *
+     * @param Kennteken
+     */
     public void VoertuigInvoeren(String Kennteken) {
         try {
             URI uri = new URI("https://opendata.rdw.nl/resource/m9d7-ebf2.json?kenteken=" + Kennteken);
@@ -74,6 +95,11 @@ public class Voertuig {
 
     }
 
+    /**
+     *
+     * @param Kenteken
+     * @return
+     */
     public boolean CheckKenteken(String Kenteken) {
         try (
                 PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM Voertuig WHERE Kenteken = ?")) {
@@ -88,6 +114,10 @@ public class Voertuig {
         return false;
     }
 
+    /**
+     *
+     * @return
+     */
     public ObservableList<EntVoertuig> VulLijstKenteken() {
         try {
             Statement stmt = this.conn.createStatement();
@@ -106,7 +136,18 @@ public class Voertuig {
         }
     }
     
-     public boolean UpdateVoertuig(String Kenteken, String Voertuigsoort, String merk, String Handelsbenaming, String Eerste_kleur, String Tweede_kleur, String Vervaldatum_apk) {
+    /**
+     *
+     * @param Kenteken
+     * @param Voertuigsoort
+     * @param merk
+     * @param Handelsbenaming
+     * @param Eerste_kleur
+     * @param Tweede_kleur
+     * @param Vervaldatum_apk
+     * @return
+     */
+    public boolean UpdateVoertuig(String Kenteken, String Voertuigsoort, String merk, String Handelsbenaming, String Eerste_kleur, String Tweede_kleur, String Vervaldatum_apk) {
         try {
             Statement stmt = conn.createStatement();
             stmt.execute("update Voertuig set Kenteken = '" + Kenteken + "', Voertuigsoort = '" + Voertuigsoort + "',Merk = '" + merk + "', Handelsbenaming = '" + Handelsbenaming + "', Eerste_kleur = '" + Eerste_kleur + "',Tweede_kleur = '" + Tweede_kleur + "',Vervaldatum_apk = '" + Vervaldatum_apk + "'");
@@ -117,6 +158,10 @@ public class Voertuig {
         }
     }
     
+    /**
+     *
+     * @param Kennteken
+     */
     public void VoertuigUpdate(String Kennteken) {
         try {
             URI uri = new URI("https://opendata.rdw.nl/resource/m9d7-ebf2.json?kenteken=" + Kennteken);
@@ -142,9 +187,11 @@ public class Voertuig {
 
     }
     
-    
-
-    
+    /**
+     *
+     * @param Kenteken
+     * @return
+     */
     public boolean DeleteVoertuig(String Kenteken) {
         try {
             Statement stmt = conn.createStatement();
@@ -156,7 +203,12 @@ public class Voertuig {
         }
     }
     
-        public EntVoertuig GeefVoertuig(String eKenteken) {
+    /**
+     *
+     * @param eKenteken
+     * @return
+     */
+    public EntVoertuig GeefVoertuig(String eKenteken) {
         try {
             Statement stmt = this.conn.createStatement();
             ResultSet rs;
