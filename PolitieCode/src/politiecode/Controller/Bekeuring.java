@@ -41,7 +41,7 @@ public class Bekeuring implements IdbConnect{
      *
      * @param Kenteken
      * @param Reden
-     * @return
+     * @return bool
      */
     public boolean NieuweBoete(String Kenteken, String Reden) {
         try {

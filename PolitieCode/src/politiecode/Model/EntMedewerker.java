@@ -26,7 +26,7 @@ public class EntMedewerker {
 
     /**
      *
-     * @return
+     * @return Naam
      */
     public String getNaam() {
         return Naam;
@@ -42,7 +42,7 @@ public class EntMedewerker {
 
     /**
      *
-     * @return
+     * @return Wachtwoord
      */
     public String getWachtwoord() {
         return Wachtwoord;

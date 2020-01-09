@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="PolitieCode.jar" size="733512" download="eager" />
+    <jar href="PolitieCode.jar" size="733517" download="eager" />
     <jar href="lib\json-20190722.jar" size="65003" download="eager" />
     <jar href="lib\mysql-connector-java-5.1.23-bin.jar" size="834126" download="eager" />
   </resources>

@@ -24,7 +24,7 @@ public class Medewerker implements IdbConnect {
 
     /**
      *
-     * @return
+     * @return bool
      */
     @Override
     public boolean connectDb() {
@@ -41,15 +41,11 @@ public class Medewerker implements IdbConnect {
      *
      * @param Naam
      * @param Wachtwoord
-     * @return
+     * @return bool
      */
     public boolean CheckInlog(String Naam, String Wachtwoord) {
-
-        // Step 1: Establishing a Connection and 
-        // try-with-resource statement will auto close the connection.
         try (
-                // Step 2:Create a statement using connection object
-                PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM medewerker WHERE Naam = ? and Wachtwoord = ?")) {
+             PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM medewerker WHERE Naam = ? and Wachtwoord = ?")) {
             preparedStatement.setString(1, Naam);
             preparedStatement.setString(2, Wachtwoord);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -63,7 +59,7 @@ public class Medewerker implements IdbConnect {
     }
 
     /**
-     *
+     *Deze functie haalt het Id van de medeweker op en slaat deze op in de prefs zodat ik deze later kan gebruiken
      * @param Naam
      * @param Wachtwoord
      */
@@ -76,11 +72,11 @@ public class Medewerker implements IdbConnect {
                 while (rs.next()) {
                     String Id = rs.getString("Id");
                     Preferences prefs = Preferences.userNodeForPackage(politiecode.Controller.Medewerker.class);
-                    prefs.put("MedewerkerId",Id);
+                    prefs.put("MedewerkerId", Id);
                 }
             }
         } catch (SQLException e) {
-            
+
         }
     }
 

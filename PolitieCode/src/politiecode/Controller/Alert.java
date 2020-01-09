@@ -11,12 +11,20 @@ package politiecode.Controller;
  */
 public class Alert {
 
+    /**
+     *
+     * @param Message
+     */
     public void PopUPWarning(String Message) {
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.WARNING);
         alert.setContentText(Message);
         alert.showAndWait();
     }
 
+    /**
+     *
+     * @param Message
+     */
     public void PopUpConfirm(String Message) {
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION);
         alert.setContentText(Message);

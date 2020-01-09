@@ -53,7 +53,7 @@ public class Voertuig implements IdbConnect {
      * @param Eerste_kleur
      * @param Tweede_kleur
      * @param Vervaldatum_apk
-     * @return
+     * @return Bool
      */
     public boolean NieuwVoertuig(String Kenteken, String Voertuigsoort, String merk, String Handelsbenaming, String Eerste_kleur, String Tweede_kleur, String Vervaldatum_apk) {
         try {
@@ -98,7 +98,7 @@ public class Voertuig implements IdbConnect {
     /**
      *
      * @param Kenteken
-     * @return
+     * @return bool
      */
     public boolean CheckKenteken(String Kenteken) {
         try (
@@ -116,7 +116,7 @@ public class Voertuig implements IdbConnect {
 
     /**
      *
-     * @return
+     * @return LijstKenteken
      */
     public ObservableList<EntVoertuig> VulLijstKenteken() {
         try {
@@ -145,7 +145,7 @@ public class Voertuig implements IdbConnect {
      * @param Eerste_kleur
      * @param Tweede_kleur
      * @param Vervaldatum_apk
-     * @return
+     * @return Bool
      */
     public boolean UpdateVoertuig(String Kenteken, String Voertuigsoort, String merk, String Handelsbenaming, String Eerste_kleur, String Tweede_kleur, String Vervaldatum_apk) {
         try {
@@ -190,7 +190,7 @@ public class Voertuig implements IdbConnect {
     /**
      *
      * @param Kenteken
-     * @return
+     * @return Bool
      */
     public boolean DeleteVoertuig(String Kenteken) {
         try {
@@ -206,7 +206,7 @@ public class Voertuig implements IdbConnect {
     /**
      *
      * @param eKenteken
-     * @return
+     * @return Bool
      */
     public EntVoertuig GeefVoertuig(String eKenteken) {
         try {
