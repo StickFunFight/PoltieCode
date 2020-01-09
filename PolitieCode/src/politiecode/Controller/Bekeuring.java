@@ -22,6 +22,10 @@ public class Bekeuring implements IdbConnect{
 
     private Connection conn;
 
+    /**
+     *
+     * @return Bool
+     */
     @Override
     public boolean connectDb() {
         try {
@@ -33,6 +37,12 @@ public class Bekeuring implements IdbConnect{
         }
     }
 
+    /**
+     *
+     * @param Kenteken
+     * @param Reden
+     * @return
+     */
     public boolean NieuweBoete(String Kenteken, String Reden) {
         try {
             Date date = new Date();

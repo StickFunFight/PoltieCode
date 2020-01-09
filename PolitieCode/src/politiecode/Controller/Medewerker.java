@@ -22,6 +22,10 @@ public class Medewerker implements IdbConnect {
 
     private Connection conn;
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean connectDb() {
         try {
@@ -33,6 +37,12 @@ public class Medewerker implements IdbConnect {
         }
     }
 
+    /**
+     *
+     * @param Naam
+     * @param Wachtwoord
+     * @return
+     */
     public boolean CheckInlog(String Naam, String Wachtwoord) {
 
         // Step 1: Establishing a Connection and 
@@ -52,6 +62,11 @@ public class Medewerker implements IdbConnect {
         return false;
     }
 
+    /**
+     *
+     * @param Naam
+     * @param Wachtwoord
+     */
     public void IdOpslaan(String Naam, String Wachtwoord) {
         try {
             Statement stmt = this.conn.createStatement();
