@@ -206,7 +206,7 @@ public class Voertuig implements IdbConnect {
     /**
      *
      * @param eKenteken
-     * @return Bool
+     * @return HetVoertuig
      */
     public EntVoertuig GeefVoertuig(String eKenteken) {
         try {
